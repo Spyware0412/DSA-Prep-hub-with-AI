@@ -131,5 +131,9 @@ Paste this UID into the VITE_ADMIN_UID field in your .env.local file and in the 
 🤝 Contributing
 Contributions are welcome! If you have suggestions for improvements, please open an issue or submit a pull request.
 
-📄 License
-This project is licensed under the MIT License. See the LICENSE file for
+<img width="1875" height="966" alt="image" src="https://github.com/user-attachments/assets/4fece61c-bed0-4f03-870e-de09b838935b" />
+<img width="1878" height="944" alt="image" src="https://github.com/user-attachments/assets/cfaad14d-4f70-4fd1-b883-23c0020b1a30" />
+<img width="1886" height="954" alt="image" src="https://github.com/user-attachments/assets/80179de7-648a-413d-a5b2-a8e3368f278f" />
+<img width="1892" height="953" alt="image" src="https://github.com/user-attachments/assets/73dfc88f-4415-427c-baf2-63c248bebb66" />
+
+
