@@ -185,10 +185,16 @@ const SortableTimetableItem = ({ item, index, onToggleComplete }) => {
         setIsExplainLoading(true);
         setExplanation('');
         try {
+            // --- DEBUGGING LINES ADDED HERE ---
+            console.log("Requesting explanation for item:", item); 
             const prompt = `Explain the concept of '${item.topic}' in a simple, beginner-friendly way. Use an analogy to make it easier to understand.`;
+            console.log("Sending this prompt to Gemini:", prompt);
+            // ------------------------------------
+
             const response = await callGeminiAPI(prompt);
             setExplanation(response);
         } catch (error) {
+            console.error("Explanation feature failed:", error); // Added a more specific console error
             setExplanation(`Error fetching explanation: ${error.message}`);
         } finally {
             setIsExplainLoading(false);
@@ -506,7 +512,7 @@ service cloud.firestore {
 
         try {
             const topicDetails = selectedTopics.map(t => `${t.name} (Difficulty: ${t.difficulty}, Estimated Duration: ${t.duration} days)`).join('; ');
-            const prompt = `You are a DSA expert. Create a study plan from ${startDate} to ${endDate} (${days} days) for ONLY these topics: ${topicDetails}. Do not include any other topics besides the ones listed. The output must be a valid JSON array of objects. Each object must have "date", "topic", "goal", "what", "how", and a "resources" object with "articles from githubs, geekforgeeks or other sources", "search on youtube links ", and "practice links from geekforgeeks or leetcode" keys. Arrange topics logically. Fill all ${days} days, using only the provided topics and adding revision sessions where appropriate.`;
+            const prompt = `You are a DSA expert. Create a study plan from ${startDate} to ${endDate} (${days} days) for ONLY these topics: ${topicDetails}. Do not include any other topics besides the ones listed. The output must be a valid JSON array of objects. Each object must have "date", "topic", "goal", "what", "how", and a "resources" object with "articles from githubs, geekforgeeks or other sources", "search on youtube links in one code for each topic ", and "practice links from geekforgeeks or leetcode" keys. Arrange topics logically. Fill all ${days} days, using only the provided topics and adding revision sessions where appropriate.`;
             const schema = { type: "ARRAY", items: { type: "OBJECT", properties: { date: { type: "STRING" }, topic: { type: "STRING" }, goal: { type: "STRING" }, what: { type: "STRING" }, how: { type: "STRING" }, resources: { type: "OBJECT", properties: { article: { type: "STRING" }, video: { type: "STRING" }, practice: { type: "STRING" } } } }, required: ["date", "topic", "goal", "what", "how", "resources"] } };
             
             const jsonString = await callGeminiAPI(prompt, true, schema);
